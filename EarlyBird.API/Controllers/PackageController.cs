@@ -1,3 +1,5 @@
+using EarlyBird.API.DomainModels;
+using EarlyBirdTestAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EarlyBird.API.Controllers
@@ -6,15 +8,21 @@ namespace EarlyBird.API.Controllers
     [Route("package")]
     public class PackageController : ControllerBase
     {
+        List<Package> _packages;
+        public PackageController() => _packages = DataItems.GetPackages();
 
-        public PackageController()
+        //Hämta alla paket
+        [HttpGet()]
+        public IActionResult GetAllPackages()
         {
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IActionResult GetPackage()
-        {
-            return Ok();
+            try
+            {
+                return Ok(_packages);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
