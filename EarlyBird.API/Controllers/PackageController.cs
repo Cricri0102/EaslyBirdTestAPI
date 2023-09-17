@@ -56,7 +56,7 @@ namespace EarlyBird.API.Controllers
                     return NotFound($"Package {id} finns inte.");
                 }
 
-                return Ok(_packages.FirstOrDefault());
+                return Ok(package);
             }
             catch (Exception ex)
             {
